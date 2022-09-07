@@ -30,7 +30,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <form action="" data-id="add-project" method="POST">
+                <%= form_for Project.new, data: { id: "add-project" } do | form | %>
                     <div class="row justify-content-between mw-100 form-group align-items-center mb-0">
                         <div class="col-1 d-none d-md-block">
                             <div class="btn btn-secondary" title="Cadastre um projeto para inserir tarefas">
@@ -53,14 +53,14 @@
                             <input type="submit" class="btn btn-primary" value="Adicionar">
                         </div>
                     </div>
-                </form>
+                <% end %>
             </li>
             <% unless @projects.empty? %>
-                <% @projects.each do | project | %>
-                    $ProjectC->loadComponent('list', $project);
+                <% @projects.each do | dados | %>
+                    <%= render 'list', project: @dados %>
                 <% end %>
             <% else %>
-                $ProjectC->loadComponent('list');
+                <%= render 'list' %>
             <% end %>
         </ul>
     </div>
