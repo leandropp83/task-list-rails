@@ -1,35 +1,35 @@
-<li class="list-group-item px-0 <% @dados ? $dados[:color] : "" %> clone-project <% @dados.nil? ? " d-none" : "" %>">
+<li class="list-group-item px-0 <%= @dados ? $dados[:color] : "" %> clone-project <%= @dados ? "" : " d-none" %>">
     <div class="row justify-content-between mw-100 no-gutters">
         <div class="project-update row justify-content-between mw-100 no-gutters w-100">
-            <div data-toggle="collapse" data-target="#proj<% @dados.nil? ? '' : $dados[:id] %>" class="accordion-toggle collapsed col-md-1" >
+            <div data-toggle="collapse" data-target="#proj<%= @dados.nil? ? "" : $dados[:id] %>" class="accordion-toggle collapsed col-md-1" >
                 <i class="fas fa-chevron-down cursor-pointer"></i>
             </div>
             <div class="col-md col-12">
-                <input type="text" name="name" class="form-control transparent" data-pname value="<% @dados.nil? ? '' : $dados[:name] %>">
+                <input type="text" name="name" class="form-control transparent" data-pname value="<%= @dados.nil? ? "" : $dados[:name] %>">
             </div>
             <div class="col-md col-sm-6">
-                <input type="text" name="date_in" class="form-control transparent" data-pdatein value="<% @dados.nil? ? '' : $dados[:date_in] %>">
+                <input type="text" name="date_in" class="form-control transparent" data-pdatein value="<%= @dados.nil? ? "" : $dados[:date_in] %>">
             </div>
             <div class="col-md col-sm-6">
-                <input type="text" name="date_end" class="form-control transparent" data-pdateend value="<% @dados.nil? ? '' : $dados[:date_end] %>">
+                <input type="text" name="date_end" class="form-control transparent" data-pdateend value="<%= @dados.nil? ? "" : $dados[:date_end] %>">
             </div>
             <div class="col-md-2 pr-md-5 px-5 pl-md-0 my-4 my-md-0"><%= progress(@dados ? @dados[:progress] : 0) %></div>
             <div class="col-md-1">
                 <div class="row justify-content-center align-items-center no-gutters mx-auto">
-                    <div class="text-center col-auto mr-4">
+                    <div class="text-center col-auto me-4">
                         <a href="#" data-href=" url('/project/delete/') . (@dados ? $dados['id'] : '') " data-toggle="modal" data-target="#confirm-delete">
-                            <i class="fas fa-trash"></i>
+                            <i class="bi bi-trash-fill"></i>
                         </a>
                     </div>
                     <div class="text-center col-auto">
                         <a href="javascript:void(0);" class="update-project" data-id="<% @dados.nil? ? '' : $dados[:id] %>">
-                            <i class="fas fa-edit"></i>
+                            <i class="bi bi-pencil-square"></i>
                         </a>
                     </div>
                 </div>      
             </div>
         </div>
-        <div class="task accordian-body collapse col-12" id="proj<% @dados.nil? ? '' : $dados[:id] %>">      
+        <div class="task accordian-body collapse col-12" id="proj<%= @dados.nil? ? "" : $dados[:id] %>">      
             <ul class="list-group list-group-flush">
                 <!-- Tasks -->
                 <li class="list-group-item mt-3">
@@ -46,7 +46,7 @@
                                 <input data-pdateend class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_end" required>
                             </div>
                             <div class="col-auto mt-2 mt-md-0 col-lg-1 col-md-2 mlauto">
-                                <input type="hidden" name="project_id" value="<% @dados ? $dados['id'] : '' %>">
+                                <input type="hidden" name="project_id" value="<%= @dados ? $dados['id'] : "" %>">
                                 <input type="submit" class="btn btn-success" value="Adicionar">
                             </div>                               
                         </div>

@@ -12,9 +12,9 @@
     </div>
     <div class="col-12 mb-2">
         <div class="row justify-content-sm-end justify-content-center">
-            <span class="squad red mr-4 pr-2">Terminará com atraso</span>
-            <span class="squad green mr-4 pr-2">Finalizado</span>
-            <span class="squad white">Em andamento</span>
+            <span class="squad red me-4 pr-2 col-auto">Terminará com atraso</span>
+            <span class="squad green me-4 pr-2 col-auto">Finalizado</span>
+            <span class="squad white col-auto">Em andamento</span>
         </div>
     </div>
     <div class="card w-100 mb-5 text-center project">
@@ -34,23 +34,23 @@
                     <div class="row justify-content-between mw-100 form-group align-items-center mb-0">
                         <div class="col-1 d-none d-md-block">
                             <div class="btn btn-secondary" title="Cadastre um projeto para inserir tarefas">
-                                <i class="fas fa-info"></i>
+                                <i class="bi bi-info"></i>
                             </div>
                         </div>
                         <div class="col-12 col-md mb-2 mb-md-0">
-                            <input class="form-control" placeholder="Nome" type="text" name="name" required>
+                            <%= form.text_field :name, class:"form-control", placeholder:"Nome", required:"" %>
                         </div>
                         <div class="col-6 col-md">
-                            <input class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_in" required>
+                            <%= form.text_field :date_in, class:"form-control", placeholder:"00/00/0000 00:00:00", required:"" %>
                         </div>
                         <div class="col-6 col-md">
-                            <input class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_end" required>
+                            <%= form.text_field :date_end, class:"form-control", placeholder:"00/00/0000 00:00:00", required:"" %>
                         </div>
                         <div class="col-6 col-md-2 pl-md-4 d-md-block d-none">
                             <%= progress(0); %>
                         </div>
                         <div class="col-auto mt-2 mt-md-0 col-lg-1 col-md-2 mlauto">
-                            <input type="submit" class="btn btn-primary" value="Adicionar">
+                            <%= form.submit "Adicionar", class:"btn btn-primary" %>
                         </div>
                     </div>
                 <% end %>

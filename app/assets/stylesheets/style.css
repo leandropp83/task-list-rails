@@ -1,3 +1,102 @@
-body {
-    background: red !important;
+:root {
+    --primary-color-light: #e8e8e8;
+    --checked: #c8ffc0;
+    --delayed: #ffc0c0;
+  }
+.bg-primary-light .title {
+    font-size: 18px;
+}
+.bg-primary-light {
+  background-color: var(--primary-color-light);
+}
+
+footer {
+  width: 100%;
+  display: block;
+}
+#home {
+  min-height: calc(100vh - 56px);
+}
+.task li {
+  background-color: #f7f7f7;
+}
+.task li:hover {
+  background-color: #f2f2f2;
+}
+input[type=checkbox] {
+  max-width: 45%;
+  margin: auto;
+}
+.fa-chevron-down {
+  transition: .5s;
+  transform: rotate(180deg);
+}
+.collapsed .fa-chevron-down {
+  transform: rotate(0);
+}
+.fas.fa-trash {
+  color: #535353;
+}
+.list-group-item {
+  transition: .3s;
+}
+.list-group-item.delayed {
+  background-color: var(--delayed);
+}
+.list-group-item.checked {
+  background-color: var(--checked) !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.alert-fixed {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 10%;
+}
+.squad {
+  position: relative;
+}
+.squad::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: -17px;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+}
+.squad.green::before {
+  background-color: var(--checked);
+}
+.squad.red::before {
+  background-color: var(--delayed);
+}
+.squad.white::before {
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+}
+.transparent {
+  max-height: 27px;
+  max-width: 85%;
+  border: transparent;
+  background: transparent;
+}
+
+@media screen and (max-width: 768px) {
+  .overflow-group > .row {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+  }
+  .overflow-group > .row > div {
+      flex: 0 0 auto;
+  }
+  .mlauto {
+      margin-left: auto;
+  }
 }
