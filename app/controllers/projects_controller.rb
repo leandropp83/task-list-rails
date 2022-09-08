@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project[:status] = STATUS[:ativo]
     respond_to do |format|
       if @project.save
         format.html do

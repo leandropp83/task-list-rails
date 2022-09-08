@@ -1,0 +1,1 @@
+STATUS = {:ativo => 1, :inativo => 2}.freeze
