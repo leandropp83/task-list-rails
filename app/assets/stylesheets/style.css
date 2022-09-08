@@ -27,11 +27,11 @@ input[type=checkbox] {
   max-width: 45%;
   margin: auto;
 }
-.fa-chevron-down {
+.bi-chevron-down {
   transition: .5s;
   transform: rotate(180deg);
 }
-.collapsed .fa-chevron-down {
+.collapsed .bi-chevron-down {
   transform: rotate(0);
 }
 .fas.fa-trash {

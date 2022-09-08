@@ -1,30 +1,30 @@
 
-<li class="list-group-item clone-task <%= @task ? ( @task[:checked] ? 'checked' : "" ) : " d-none" %>">
+<li class="list-group-item clone-task <%= task.present? ? ( task[:checked].present? ? 'checked' : "" ) : " d-none" %>">
     <div class="task-update row justify-content-between mw-100 form-group mb-0 align-items-center">
         <div class="col-md-1 my-2 my-md-0">
-            <input type="checkbox" data-tid="<%= @task ? @task[:id] : "" %>" name="checked" class="form-control" <%= @task && @task[:checked] ? "checked" : "" %> >
+            <input type="checkbox" data-tid="<%= task ? task[:id] : "" %>" name="checked" class="form-control" <%= task && task[:checked] ? "checked" : "" %> >
         </div>
         <div class="col-12 col-md mb-2 mb-md-0">
-            <input class="form-control" placeholder="Nome" type="text" name="name" value="<%= @task ? @task[:name] : "" %>" required>
+            <input class="form-control" placeholder="Nome" type="text" name="name" value="<%= task ? task[:name] : "" %>" required>
         </div>
         <div class="col-6 col-md">
-            <input class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_in" value="<%= @task ? @task[:date_in] : "" %>" required>
+            <input class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_in" value="<%= task.present? ? task[:date_in].strftime("%m/%d/%Y %H:%M:%S") : "" %>" required>
         </div>
         <div class="col-6 col-md">
-            <input type="hidden" name="task_id" value="<% @task ? @task[:id] : "" %>">
-            <input class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_end" value="<%= @task ? @task[:date_end] : "" %>" required>
+            <input type="hidden" name="task_id" value="<% task ? task[:id] : "" %>">
+            <input class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_end" value="<%= task.present? ? task[:date_end].strftime("%m/%d/%Y %H:%M:%S") : "" %>" required>
         </div>
         
         <div class="mt-2 mt-md-0 col-lg-auto col-md-2">
             <div class="row justify-content-center align-items-center no-gutters mx-auto">
                 <div class="text-center col-auto me-4">
-                    <%# url('/task/delete/') . (@task ? @task[:id] : "") %>
+                    <%# url('/task/delete/') . (task ? task[:id] : "") %>
                     <a href="#" data-href="" data-toggle="modal" data-target="#confirm-delete">
                         <i class="bi bi-trash-fill"></i>
                     </a>
                 </div>
                 <div class="text-center col-auto">
-                    <a href="javascript:void(0);" class="update-task" data-id="<%= @task ? @task[:id] : "" %>">
+                    <a href="javascript:void(0);" class="update-task" data-id="<%= task ? task[:id] : "" %>">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                 </div>

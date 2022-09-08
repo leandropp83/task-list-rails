@@ -3,21 +3,34 @@ const modal = $("#return_msg");
 $(document).ready(function () {
 
     $(document).delegate('form', 'submit', function(e) {
-        e.preventDefault();        
+        // e.preventDefault();        
         let controller = $(this).data('id').replace('add-', '');
-        $.post($('#HTTP_SERVER').val() + '/' + controller + '/save', {
-            data: $(this).serialize(),
-            dataType: "json"
+        // console.log(JSON.parse(JSON.stringify($(this).serializeArray())));
+        return true;
+        $.post($('#HTTP_SERVER').val() + controller + '/create', {
+            // data: JSON.parse(JSON.stringify($(this).serializeArray())),
+            // dataType: "json"
+            project: { 
+                        name: $('input[name="project[name]"]').val(), 
+                        date_in: $('input[name="project[date_in]"]').val(),
+                        date_end: $('input[name="project[date_end]"]').val(),
+                        authenticity_token: $('input[name=authenticity_token]').val()
+                    },
+            
         }, function (response) {
+            console.log(response);
             try {
                 json = JSON.parse(response);
+                console.log(json);
                 if(json.id) {
                     success(json.id, controller);
                 }
-            } catch(e) {
+            } catch(response) {
+                console.log(response.responseText);
                 fail(response);
             }
-        }).fail(function() {
+        }).fail(function(e) {
+            console.log(e.responseText);
             fail('Falha no cadastro');
         });
     });
