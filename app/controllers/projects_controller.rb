@@ -36,6 +36,9 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    @project.destroy
+    flash[:notice] = "Projeto removido!"
+    redirect_to root_path
   end
 
   def update
@@ -48,7 +51,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      # raise params.inspect
       params.require(:project).permit(:name, :date_in, :date_end)
     end
 

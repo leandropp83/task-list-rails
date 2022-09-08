@@ -16,12 +16,10 @@
             <div class="col-md-2 pr-md-5 px-5 pl-md-0 my-4 my-md-0"><%= progress(project ? project[:progress] : 0) %></div>
             <div class="col-md-1">
                 <div class="row justify-content-center align-items-center no-gutters mx-auto">
-                    <div class="text-center col-auto me-4">
-                        <a href="#" data-href=" url('/project/delete/') . (project ? project['id'] : '') " data-toggle="modal" data-target="#confirm-delete">
-                            <i class="bi bi-trash-fill"></i>
-                        </a>
+                    <div class="text-center col-6 p-0">
+                       <%= button_to '<i class="bi bi-trash-fill"></i>'.html_safe, (projects_path + "/" + project[:id].to_s), form: {data: {turbo_confirm: 'Are you sure?'}}, method: :delete, class:"btn btn-danger" %>
                     </div>
-                    <div class="text-center col-auto">
+                    <div class="text-center col-6">
                         <a href="javascript:void(0);" class="update-project" data-id="<% project.nil? ? '' : project[:id] %>">
                             <i class="bi bi-pencil-square"></i>
                         </a>

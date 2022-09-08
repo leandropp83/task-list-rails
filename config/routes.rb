@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   root "projects#index"
-  resource :projects, only: [:create, :destroy, :update]
-  # post 'projects/create', to:"projects#create"
+  resource :projects, only: [:create, :update]
+  delete "projects/:id", to:"projects#destroy", as: :destroy
 end
