@@ -59,12 +59,12 @@
                         </div>
                     <% end %>
                 </li>
-                <% if project && project[:tasks] %>
-                    <% project[:tasks].each do | task | %>
+                <% if project.task.present? %>                    
+                    <% project.task.each do | task | %>
                         <%= render 'tasks', task: task %>
                     <% end %>
                 <% else %>
-                    <%= render 'tasks', task: {} %>
+                    <%= render 'tasks', task: nil %>
                 <% end %>
             </ul>
         </div>
