@@ -1,12 +1,21 @@
 $(document).ready(function () {
     // Check update
     $('input[type=checkbox]').on('click', function() {
-        $.post($('#HTTP_SERVER').val() + 'tasks/' + $(this).attr('data-id') + '/check', {
-            task: { checked: $(this).prop('checked') }
-        }, function (response) {
-            // console.log(response);
-        });
-        $(this).closest('li').toggleClass( 'checked' );
+        // let token = $(this).parents('form').find('input[name=authenticity_token]').val();
+        $.ajax({
+          type: "POST",
+          url: $('#HTTP_SERVER').val() + 'tasks/' + $(this).attr('data-id') + '/check',
+          data: {
+              task: { checked: $(this).prop('checked') }
+          },
+          beforeSend(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          success: function (json) {
+            // console.log(json);
+          }
+      });
+      $(this).closest('li').toggleClass( 'checked' );
     });
 
     $('.accordion-toggle').on('click', function() {

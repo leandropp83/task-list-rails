@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
     
     before_action :set_task, only: [:update, :destroy]
-    skip_before_action :verify_authenticity_token
 
     def create
         @project = Project.find(params[:task][:project_id])
