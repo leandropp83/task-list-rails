@@ -1,32 +1,41 @@
 <li class="list-group-item px-0 <%= project ? project[:color] : "" %> clone-project <%= project.present? ? "" : " d-none" %>">
     <div class="row justify-content-between mw-100 no-gutters">
-        <div class="project-update row justify-content-between mw-100 no-gutters w-100">
+        
+        <%= form_for @project, method: :put do | f | %>
+        <div class="row justify-content-between mw-100 no-gutters w-100">
             <div data-bs-toggle="collapse" href="#proj<%= project.nil? ? "" : project[:id] %>" class="accordion-toggle collapsed col-md-1" >
                 <i class="bi bi-chevron-down cursor-pointer"></i>
             </div>
             <div class="col-md col-12">
-                <input type="text" name="name" class="form-control transparent" data-pname value="<%= project.nil? ? "" : project[:name] %>">
+                <%= f.text_field :name, class:"form-control transparent", placeholder:"Nome", value: (project.nil? ? "" : project[:name]), required:"" %>
             </div>
             <div class="col-md col-sm-6">
-                <input type="text" name="date_in" class="form-control transparent" data-pdatein value="<%= project.present? ? project[:date_in].strftime("%m/%d/%Y %H:%M:%S") : "" %>">
+                <%= f.text_field :date_in, class:"form-control transparent", placeholder:"00/00/0000 00:00:00", value: (project.present? ? project[:date_in].strftime("%m/%d/%Y %H:%M:%S") : ""), required:"" %>
             </div>
             <div class="col-md col-sm-6">
-                <input type="text" name="date_end" class="form-control transparent" data-pdateend value="<%= project.present? ? project[:date_end].strftime("%m/%d/%Y %H:%M:%S") : "" %>">
+                <%= f.text_field :date_end, class:"form-control transparent", placeholder:"00/00/0000 00:00:00", value: (project.present? ? project[:date_end].strftime("%m/%d/%Y %H:%M:%S") : ""), required:"" %>
             </div>
+            <%= f.hidden_field :id, name:"id", value: (project.present? ? project[:id] : "") %>
             <div class="col-md-2 pr-md-5 px-5 pl-md-0 my-4 my-md-0"><%= progress(project ? project[:progress] : 0) %></div>
+            <% if project.present? %>
             <div class="col-md-1">
                 <div class="row justify-content-center align-items-center no-gutters mx-auto">
                     <div class="text-center col-6 p-0">
-                       <%= button_to '<i class="bi bi-trash-fill"></i>'.html_safe, (projects_path + "/" + project[:id].to_s), form: {data: {turbo_confirm: 'Are you sure?'}}, method: :delete, class:"btn btn-danger" %>
+                       <%= button_tag(  :class => "transparent red-bs", formaction: destroy_path(project), formmethod: :get, data: { confirm: "Are you sure?" }) do %>
+                            <i class="bi bi-trash-fill"></i>
+                        <% end %>
                     </div>
                     <div class="text-center col-6">
-                        <a href="javascript:void(0);" class="update-project" data-id="<% project.nil? ? '' : project[:id] %>">
+                        <%= button_tag(:class => "transparent blue-bs") do %>
                             <i class="bi bi-pencil-square"></i>
-                        </a>
+                        <% end %>
                     </div>
                 </div>      
             </div>
-        </div>
+            <% end %>
+            </div>
+            <% end %>
+        
         <div class="task accordian-body collapse col-12" id="proj<%= project.nil? ? "" : project[:id] %>">      
             <ul class="list-group list-group-flush">
                 <!-- Tasks -->

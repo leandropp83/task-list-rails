@@ -86,6 +86,12 @@ input[type=checkbox] {
   border: transparent;
   background: transparent;
 }
+.red-bs {
+  color: #dc3545
+}
+.blue-bs {
+  color: #0d6efd;
+}
 
 @media screen and (max-width: 768px) {
   .overflow-group > .row {

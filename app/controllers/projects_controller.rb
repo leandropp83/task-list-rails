@@ -21,14 +21,14 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         format.html do
-          flash[:notice] = "Projeto cadastrado!"
-          redirect_to '/'
+          flash[:notice] = "#{@project[:name]} foi cadastrado!"
+          redirect_to root_path
         end
         format.json { render :index, status: :created, location: @project }
       else
         format.html do
           flash[:error] = @project.errors.full_messages
-          redirect_to '/'
+          redirect_to root_path
         end
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
@@ -42,6 +42,12 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    if @project.update(project_params)
+      flash[:notice] = "#{@project[:name]} foi atualizado!"
+    else
+      flash[:error] = @project.errors.full_messages
+    end
+    redirect_to root_path
   end
 
   private
@@ -51,6 +57,7 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
+      # raise params.inspect
       params.require(:project).permit(:name, :date_in, :date_end)
     end
 

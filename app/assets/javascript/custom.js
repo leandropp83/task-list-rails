@@ -143,6 +143,12 @@ $(document).ready(function () {
 
 // validate 
 $(document).ready(function () {
+    // $('input[name=commit]').on('click', function(){
+    //     if ($(this).data('method') == 'delete') {
+    //         $(this).parents('form').find('input[name=_method]').val('delete');
+    //     }
+    // });
+
     $("form").on("submit", function() {
         let submit = $(this).find("input[type=submit]");
         submit.attr("disabled", "disabled");
