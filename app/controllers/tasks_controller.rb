@@ -21,6 +21,15 @@ class TasksController < ApplicationController
         redirect_to root_path
     end
 
+    def update
+        if @task.update(task_params)
+            flash[:notice] = "#{@task[:name]} foi atualizado!"
+        else
+            flash[:error] = @task.errors.full_messages
+        end
+        redirect_to root_path
+    end
+
     private
     
     def set_task
