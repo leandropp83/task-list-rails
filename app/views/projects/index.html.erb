@@ -38,7 +38,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <%= form_for Project.new, data: { id: "add-projects" } do | form | %>
+                <%= form_for @project, data: { id: "add-projects" } do | form | %>
                     <div class="row justify-content-between mw-100 form-group align-items-center mb-0">
                         <div class="col-1 d-none d-md-block">
                             <div class="btn btn-secondary" title="Cadastre um projeto para inserir tarefas">

@@ -1,11 +1,10 @@
 <li class="list-group-item px-0 <%= project ? project[:color] : "" %> clone-project <%= project.present? ? "" : " d-none" %>">
-    <div class="row justify-content-between mw-100 no-gutters">
-        
+    <div class="row justify-content-between mw-100 mx-0">
         <%= form_for @project, method: :put do | f | %>
-            <div class="row justify-content-between mw-100 no-gutters w-100">
-                <div data-bs-toggle="collapse" href="#proj<%= project.nil? ? "" : project[:id] %>" class="accordion-toggle collapsed col-md-1" >
+            <div class="row justify-content-between mw-100 w-100">
+                <a data-bs-toggle="collapse" href="#proj<%= project.present? ? project[:id] : "" %>" class="accordion-toggle collapsed col-md-1" >
                     <i class="bi bi-chevron-down cursor-pointer"></i>
-                </div>
+                </a>
                 <div class="col-md col-12">
                     <%= f.text_field :name, class:"form-control transparent", placeholder:"Nome", value: (project.nil? ? "" : project[:name]), required:"" %>
                 </div>
@@ -19,7 +18,7 @@
                 <div class="col-md-2 pr-md-5 px-5 pl-md-0 my-4 my-md-0"><%= progress(project ? project[:progress] : 0) %></div>
                 <% if project.present? %>
                     <div class="col-md-1">
-                        <div class="row justify-content-center align-items-center no-gutters mx-auto">
+                        <div class="row justify-content-center align-items-center mx-0 mx-auto">
                             <div class="text-center col-6 p-0">
                             <%= button_tag(  :class => "transparent red-bs", formaction: destroy_path(project), formmethod: :get, data: { confirm: "Are you sure?" }) do %>
                                     <i class="bi bi-trash-fill"></i>
@@ -35,29 +34,30 @@
                 <% end %>
             </div>
         <% end %>
-        
-        <div class="task accordian-body collapse col-12" id="proj<%= project.nil? ? "" : project[:id] %>">      
+        <div class="task accordian-body collapse col-12 px-0" id="proj<%= project.present? ? project[:id]: "" %>">      
             <ul class="list-group list-group-flush">
                 <!-- Tasks -->
                 <li class="list-group-item mt-3">
-                    <form action="" data-id="add-task" method="POST">
+                    <%= form_for @task do | form | %>
                         <div class="row justify-content-between mw-100 form-group mb-0 align-items-center">
-                            <div class="col-md-1 my-2 my-md-0"><input type="checkbox" name="checked" class="form-control" disabled></div>
+                            <div class="col-md-1 my-2 my-md-0">
+                                <%= form.check_box :checked, class:"form-control", disabled:"" %>
+                            </div>
                             <div class="col-12 col-md mb-2 mb-md-0">
-                                <input data-pname class="form-control" placeholder="Nome" type="text" name="name" required>
+                                <%= form.text_field :name, class:"form-control", placeholder:"Nome", required:"" %>
                             </div>
                             <div class="col-6 col-md">
-                                <input data-pdatein class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_in" required>
+                                 <%= form.text_field :date_in, class:"form-control", placeholder:"00/00/0000 00:00:00", required:"" %>
                             </div>
                             <div class="col-6 col-md">
-                                <input data-pdateend class="form-control" type="text" placeholder="00/00/0000 00:00:00" name="date_end" required>
+                                 <%= form.text_field :date_end, class:"form-control", placeholder:"00/00/0000 00:00:00", required:"" %>
                             </div>
                             <div class="col-auto mt-2 mt-md-0 col-lg-1 col-md-2 mlauto">
-                                <input type="hidden" name="project_id" value="<%= project ? project['id'] : "" %>">
-                                <input type="submit" class="btn btn-success" value="Adicionar">
+                                <%= form.hidden_field :project_id, value: (project.present? ? project[:id] : "") %>
+                                <%= form.submit "Adicionar", class:"btn btn-success" %>
                             </div>                               
                         </div>
-                    </form>
+                    <% end %>
                 </li>
                 <% if project && project[:tasks] %>
                     <% project[:tasks].each do | task | %>

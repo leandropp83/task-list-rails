@@ -2,17 +2,16 @@ class ProjectsController < ApplicationController
 
   before_action :set_project, only: [:update, :destroy]
   before_action :new, only: [:index]
-  # protect_from_forgery unless: -> { request.format.json? }
 
   def index
     @projects = Project.all
-    # raise @projects.inspect
     @progress = 0
     @project_progress = 0
   end
 
   def new
     @project = Project.new
+    @task = Task.new
   end
 
   def create
