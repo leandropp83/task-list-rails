@@ -27,11 +27,13 @@ input[type=checkbox] {
   max-width: 45%;
   margin: auto;
 }
-.bi-chevron-down {
-  transition: .5s;
+
+.accordion-toggle {
   transform: rotate(180deg);
+  transition: .3s;
 }
-.collapsed .bi-chevron-down {
+a.accordion-toggle.collapsed {
+  transition: .3s;
   transform: rotate(0);
 }
 .fas.fa-trash {
@@ -91,6 +93,13 @@ input[type=checkbox] {
 }
 .blue-bs {
   color: #0d6efd;
+}
+.red-bs:hover,
+.blue-bs:hover {
+  opacity: .8;
+}
+.bi-chevron-down {
+  color: #535353;
 }
 
 @media screen and (max-width: 768px) {
