@@ -47,7 +47,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      # raise params.inspect
       params.require(:project).permit(:name, :date_in, :date_end)
     end
 

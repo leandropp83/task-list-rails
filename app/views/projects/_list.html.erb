@@ -20,7 +20,7 @@
                     <div class="col-md-1">
                         <div class="row justify-content-center align-items-center mx-0 mx-auto">
                             <div class="text-center col-6 p-0">
-                            <%= button_tag(  :class => "transparent red-bs", formaction: destroy_path(project), formmethod: :get, data: { confirm: "Are you sure?" }) do %>
+                            <%= button_tag(  :class => "transparent red-bs", formaction: destroy_projects_path(project), formmethod: :get, data: { confirm: "Tem certeza que deseja remover?" }) do %>
                                     <i class="bi bi-trash-fill"></i>
                                 <% end %>
                             </div>

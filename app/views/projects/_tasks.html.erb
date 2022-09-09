@@ -17,12 +17,12 @@
             <% if task.present? %>
                 <div class="mt-2 mt-md-0 col-lg-auto col-md-2">
                     <div class="row justify-content-center align-items-center mx-0 mx-auto">
-                        <div class="text-center col-auto me-4">
-                            <%= button_tag(  :class => "transparent red-bs", formaction: destroy_path(project), formmethod: :get, data: { confirm: "Are you sure?" }) do %>
+                        <div class="text-right col-auto px-0">
+                            <%= button_tag(  :class => "transparent red-bs", formaction: destroy_tasks_path(task), formmethod: :get, data: { confirm: "Tem certeza que deseja remover?" }) do %>
                                 <i class="bi bi-trash-fill"></i>
                             <% end %>
                         </div>
-                        <div class="text-center col-auto">
+                        <div class="text-center col-auto pe-0">
                             <%= button_tag(:class => "transparent blue-bs") do %>
                                 <i class="bi bi-pencil-square"></i>
                             <% end %>
