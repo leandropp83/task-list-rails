@@ -16,22 +16,13 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    @project[:status] = STATUS[:ativo]
-    respond_to do |format|
-      if @project.save
-        format.html do
-          flash[:notice] = "#{@project[:name]} foi cadastrado!"
-          redirect_to root_path
-        end
-        format.json { render :index, status: :created, location: @project }
-      else
-        format.html do
-          flash[:error] = @project.errors.full_messages
-          redirect_to root_path
-        end
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    @project[:status] = STATUS[:ativo]    
+    if @project.save
+      flash[:notice] = "#{@project[:name]} foi cadastrado!"        
+    else
+      flash[:error] = @project.errors.full_messages        
     end
+    redirect_to root_path
   end
 
   def destroy
