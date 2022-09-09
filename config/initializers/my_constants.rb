@@ -1,1 +1,1 @@
-STATUS = {:ativo => 1, :inativo => 2}.freeze
+STATUS = {:ativo => 1, :inativo => 0}.freeze
