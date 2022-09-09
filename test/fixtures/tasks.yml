@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: false
+  name: MyString
+  date_in: 2022-09-09 13:27:27
+  date_end: 2022-09-09 13:27:27
+  checked: false
+
+two:
+  status: false
+  name: MyString
+  date_in: 2022-09-09 13:27:27
+  date_end: 2022-09-09 13:27:27
+  checked: false
