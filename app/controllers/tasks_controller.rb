@@ -5,8 +5,10 @@ class TasksController < ApplicationController
     def create
         @project = Project.find(params[:task][:project_id])
         @task = @project.task.new(task_params)        
-        @task[:status] = STATUS[:inativo]
-            
+        @task[:status] = STATUS[:ativo]
+        if @task[:checked].nil?
+            @task[:checked] = STATUS[:inativo]
+        end
         if @task.save
             flash[:notice] = "#{@task[:name]} foi cadastrado!"
         else
@@ -33,9 +35,11 @@ class TasksController < ApplicationController
         end        
     end    
 
-    def self.calc_task_progress
-        @tasks = Task.all
-        @tasks.nil? || @tasks.empty? ? 0 : self.calc_percent(@tasks)
+    def self.calc_progress(tasks = nil)
+        if tasks.nil?
+            tasks = Task.all
+        end
+        tasks.nil? || tasks.empty? ? 0 : self.calc_percent(tasks)
     end
 
     private
@@ -48,14 +52,14 @@ class TasksController < ApplicationController
         params.require(:task).permit(:name, :date_in, :date_end, :checked)
     end
 
-    def self.calc_percent(array)
+    def self.calc_percent(tasks)
         checked = 0
-        array.each do | task |
+        tasks.each do | task |            
             if task[:checked] == true
                 checked += 1
             end
         end
-        value = ( checked / array.count ) * 100
+        value = (checked.to_f / tasks.count.to_f) * 100
         value.floor
     end
 

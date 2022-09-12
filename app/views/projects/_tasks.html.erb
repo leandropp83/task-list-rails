@@ -1,13 +1,13 @@
 
-<li class="list-group-item <%= task.present? ? ( task[:checked] == true ? 'checked' : "" ) : " d-none" %>">
+<li class="list-group-item <%= task.present? ? ( task[:checked] ? 'checked' : "" ) : " d-none" %>">
     <%= form_for @task, method: :put do | form | %>
         <div class="row justify-content-between mw-100 form-group mb-0 align-items-center input-group">
             <div class="col-md-1 my-2 my-md-0 input-group-text">
                 <%= form.check_box :checked,
-                    { checked: task[:checked],
+                    { checked: task.present? && task[:checked],
                     class: "form-check-input",
                     data: {:id => task.present? ? task[:id] : ""},
-                    value: task[:checked] == true ? STATUS[:ativo] : STATUS[:inativo] } %>
+                    value: task.present? && task[:checked] ? STATUS[:ativo] : STATUS[:inativo] } %>
             </div>
             <div class="col-12 col-md mb-2 mb-md-0">
                 <%= form.text_field :name, class:"form-control", placeholder:"Nome", value: task.present? ? task[:name] : "", required:"" %>

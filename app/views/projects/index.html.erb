@@ -41,7 +41,7 @@
                 <%= form_for @project, data: { id: "add-projects" } do | form | %>
                     <div class="row justify-content-between mw-100 form-group align-items-center mb-0">
                         <div class="col-1 d-none d-md-block">
-                            <div class="btn btn-secondary" title="Cadastre um projeto para inserir tarefas">
+                            <div class="btn btn-secondary py-0 px-1" title="Cadastre um projeto para inserir tarefas">
                                 <i class="bi bi-info"></i>
                             </div>
                         </div>
@@ -64,7 +64,9 @@
                 <% end %>
             </li>
             <% unless @projects.blank? %>
+                <% taskss = [] %>
                 <% @projects.each do | project | %>
+                    <% taskss.push(project.task) %>
                     <%= render 'list', project: project %>
                 <% end %>
             <% else %>

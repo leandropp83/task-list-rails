@@ -41,7 +41,9 @@
                     <%= form_for @task do | form | %>
                         <div class="row justify-content-between mw-100 form-group mb-0 align-items-center">
                             <div class="col-md-1 my-2 my-md-0">
-                                <%= form.check_box :checked, class:"form-control", disabled:"" %>
+                                <div class="btn btn-secondary py-0 px-1" title="Cadastrar tarefas">
+                                    <i class="bi bi-info"></i>
+                                </div>
                             </div>
                             <div class="col-12 col-md mb-2 mb-md-0">
                                 <%= form.text_field :name, class:"form-control", placeholder:"Nome", required:"" %>
@@ -59,7 +61,7 @@
                         </div>
                     <% end %>
                 </li>
-                <% if project.task.present? %>                    
+                <% if project.task.present? %>               
                     <% project.task.each do | task | %>
                         <%= render 'tasks', task: task %>
                     <% end %>
