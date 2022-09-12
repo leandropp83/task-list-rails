@@ -11,8 +11,8 @@ $(document).ready(function () {
           beforeSend(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
           },
-          success: function (json) {
-            // console.log(json);
+          success: function () {
+            location.reload(); // até ajustar os gráficos para atualizarem via js também
           }
       });
       $(this).closest('li').toggleClass( 'checked' );
