@@ -1,7 +1,7 @@
 
 <li class="list-group-item <%= task.present? ? ( task[:checked] ? 'checked' : "" ) : " d-none" %>">
     <%= form_for @task, method: :put do | form | %>
-        <div class="row justify-content-between mw-100 form-group mb-0 align-items-center input-group mr-0">
+        <div class="row justify-content-between mw-100 form-group mb-0 align-items-center input-group mx-auto">
             <div class="col-lg-1 my-2 my-lg-0 input-group-text">
                 <%= form.check_box :checked,
                     { checked: task.present? && task[:checked],
@@ -20,7 +20,7 @@
             </div>
             <%= form.hidden_field :id, name:"id", value: (task.present? ? task[:id] : "") %>
             <% if task.present? %>
-                <div class="mt-2 mt-lg-0 col-lg-auto col-lg-2">
+                <div class="mt-2 mt-lg-0 col-lg-auto me-0 me-lg-3">
                     <div class="row justify-content-center align-items-center mx-0 mx-auto">
                         <div class="text-right col-auto px-0">
                             <%= button_tag(  :class => "transparent red-bs", formmethod: :get, data: { "bs-target": "#confirm-delete", href: destroy_tasks_path(task), "bs-toggle": "modal" }) do %>

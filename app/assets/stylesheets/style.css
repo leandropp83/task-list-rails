@@ -84,7 +84,7 @@ a.accordion-toggle.collapsed {
 }
 .transparent {
   max-height: 27px;
-  max-width: 85%;
+  /* max-width: 85%; */
   border: transparent;
   background: transparent;
 }
