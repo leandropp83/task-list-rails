@@ -45,6 +45,10 @@ COPY package.json yarn.lock ./
 
 RUN yarn install --check-files
 
+ARG to_remove docker build -t openjobs:reduced --build-arg build_without="development test" --build-arg rails_env="production" . --build-arg to_remove="spec node_modules app/assets vendor/assets lib/assets tmp/cache"
+
+RUN rm -rf /gems/cache/*.gem && rm -rf $to_remove
+
 COPY . ./
 
 ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
