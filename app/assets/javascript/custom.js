@@ -37,3 +37,9 @@ $(document).ready(function () {
 $(document).on("focus", "input[name*='date']", function() {
   $(this).mask('00/00/0000 00:00:00', {reverse: false});
 });
+
+// confirm modal
+$('[data-bs-target="#confirm-delete"]').on('click', function(e) {
+    e.preventDefault();
+    $('.btn-ok').attr('href', $(this).data('href'));
+});

@@ -18,7 +18,8 @@
   <body>
     <input type="hidden" id="HTTP_SERVER" value="<%= request.original_url %>">
     <div class="container-fluid">
-      <%= yield %>
+        <%= render 'modal', { title: "Deletar", body: "Deseja deletar o item selecionado?", button: "Deletar" } %>
+        <%= yield %>
     </div>
     <footer class="container-fluid bg-dark">
         <div class="container text-white text-center">
