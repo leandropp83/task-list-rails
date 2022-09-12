@@ -102,7 +102,7 @@ a.accordion-toggle.collapsed {
   color: #535353;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 991px) {
   .overflow-group > .row {
       display: flex;
       flex-wrap: nowrap;
@@ -113,5 +113,11 @@ a.accordion-toggle.collapsed {
   }
   .mlauto {
       margin-left: auto;
+  }
+  .mr-0 {
+    margin: 0;
+  }
+  .accordion-toggle {
+    order: 1;
   }
 }
