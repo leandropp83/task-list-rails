@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
-    @progress = 0
+    @task_progress = TasksController::calc_task_progress
     @project_progress = 0
   end
 

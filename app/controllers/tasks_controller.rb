@@ -33,18 +33,30 @@ class TasksController < ApplicationController
         end        
     end    
 
+    def self.calc_task_progress
+        @tasks = Task.all
+        @tasks.nil? || @tasks.empty? ? 0 : self.calc_percent(@tasks)
+    end
+
     private
     
     def set_task
         @task = Task.find(params[:id])
     end
 
-    def get_tasks
-        @tasks = Task.all
-    end
-
     def task_params
         params.require(:task).permit(:name, :date_in, :date_end, :checked)
+    end
+
+    def self.calc_percent(array)
+        checked = 0
+        array.each do | task |
+            if task[:checked] == true
+                checked += 1
+            end
+        end
+        value = ( checked / array.count ) * 100
+        value.floor
     end
 
 end
