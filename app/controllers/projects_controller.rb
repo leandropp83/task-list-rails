@@ -61,24 +61,19 @@ class ProjectsController < ApplicationController
         if projects.empty?
             return 0
         end
-        completed = 0;
+        completed = 0
         projects.each do | value |
-            if isCompleted(value.task) == true
+            if isCompleted(value.task)
                 completed += 1
             end
         end
-        value = ( completed / projects.count ) * 100
+        value = ( completed.to_f / projects.count.to_f ) * 100
         value.floor
     end
 
     def isCompleted(tasks)
-        checked_list = tasks.select { |value| value[:checked] == true }
-        if tasks.empty? || checked_list.empty?
-            return false
-        end
-        true
-        # raise mapssad.inspect
-        # !in_array(parent::STATUS_INATIVO, array_column($tasks, 'checked')) && !tasks.empty?
+        checked_list = tasks.select { |value| value[:checked] == false }
+        !tasks.empty? && checked_list.empty?
     end
 
 end
