@@ -1,4 +1,4 @@
-<li class="list-group-item px-0 <%= project ? project[:color] : "" %> clone-project <%= project.present? ? "" : " d-none" %>">
+<li class="list-group-item px-0 <%= project.present? ? getColor(project) : "" %> clone-project <%= project.present? ? "" : " d-none" %>">
     <div class="row justify-content-between mw-100 mx-0">
         <%= form_for @project, method: :put do | f | %>
             <div class="row justify-content-between mw-100 w-100">

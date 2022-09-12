@@ -40,6 +40,18 @@ class ProjectsController < ApplicationController
         redirect_to root_path
     end
 
+    def get_project_color project
+        if project.task.empty?
+            return ""
+        end
+        completed = isCompleted(project.task)
+        delayed = project.task.select{|task| isDelayed(task[:date_end], project[:date_end]) }
+        if completed
+            return "checked"
+        end
+        !delayed.empty? ? " delayed" : ""
+    end
+
     private
     
     def set_project
@@ -67,6 +79,10 @@ class ProjectsController < ApplicationController
     def isCompleted(tasks)
         checked_list = tasks.select { |value| value[:checked] == false }
         !tasks.empty? && checked_list.empty?
+    end
+
+    def isDelayed date, compare
+        date > compare
     end
 
 end
