@@ -15,7 +15,7 @@
                     <%= f.text_field :date_end, class:"form-control transparent", placeholder:"00/00/0000 00:00:00", value: (project.present? ? project[:date_end].strftime("%m/%d/%Y %H:%M:%S") : ""), required:"" %>
                 </div>
                 <%= f.hidden_field :id, name:"id", value: (project.present? ? project[:id] : "") %>
-                <div class="col-md-2 pr-md-5 px-5 pl-md-0 my-4 my-md-0"><%= progress(project ? project[:progress] : 0) %></div>
+                <div class="col-md-2 pr-md-5 px-5 pl-md-0 my-4 my-md-0"><%= progress(project.present? ? calc_project_progress(project) : 0) %></div>
                 <% if project.present? %>
                     <div class="col-md-1">
                         <div class="row justify-content-center align-items-center mx-0 mx-auto">
@@ -61,7 +61,7 @@
                         </div>
                     <% end %>
                 </li>
-                <% if project.task.present? %>               
+                <% if project.present? %>               
                     <% project.task.each do | task | %>
                         <%= render 'tasks', task: task %>
                     <% end %>

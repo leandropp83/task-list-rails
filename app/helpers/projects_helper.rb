@@ -22,4 +22,8 @@ module ProjectsHelper
         str.html_safe
     end
 
+    def calc_project_progress(project)
+        TasksController::calc_progress project.task
+    end
+
 end

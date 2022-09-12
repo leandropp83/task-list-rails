@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
     before_action :new, only: [:index]
 
     def index
-        @projects = Project.all        
+        @projects = Project.all
         @task_progress = TasksController::calc_progress
         @project_progress = calc_total_project_progress(@projects)        
     end
@@ -48,13 +48,6 @@ class ProjectsController < ApplicationController
 
     def project_params
         params.require(:project).permit(:name, :date_in, :date_end)
-    end
-
-    def calc_project_progress(project_tasks)
-        @var = TasksController::calc_progress project_tasks
-
-        raise @var.inspect
-        @var
     end
 
     def calc_total_project_progress(projects)    
