@@ -31,6 +31,10 @@ RSpec.describe ProjectsController, type: :controller do
         it "should have a new project" do
             get :index
             expect(assigns(:project)).to be_a_new(Project) 
+        end  
+        it "should have a new task" do
+            get :index
+            expect(assigns(:task)).to be_a_new(Task) 
         end        
     end
 
