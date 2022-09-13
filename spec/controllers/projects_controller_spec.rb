@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ProjectsController, type: :controller do
+    
     context "GET #index" do
         it "should render index page" do
             get :index
@@ -11,11 +12,19 @@ RSpec.describe ProjectsController, type: :controller do
             get :index
             expect(assigns(:projects)).to be_empty
         end
+        it "project_progress should be equal 0" do
+            get :index
+            expect(assigns(:project_progress)).to eq(0)
+        end
         it "should have one project" do
             create(:project)
             get :index
             expect(assigns(:projects)).to_not be_empty
-        end        
+        end      
+        it "project_progress should be equal 0" do
+            get :index
+            expect(assigns(:project_progress)).to eq(0)
+        end
     end
 
     context ".new" do        
@@ -26,15 +35,9 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     context "GET #destroy" do
-        let(:project) { create(:project) } 
-        it "find project by id" do          
-            get :destroy, params: {id: project.id}
-            expect(assigns(:project)).to be_a(Project) 
-        end
-        xit "deletes project" do                      
-            expect do
-                get destroy_projects_path(project)
-            end.to change(Project, :count).by(-1) 
+        let!(:project) { create(:project) }
+        it "deletes project" do                      
+            expect { project.destroy }.to change { Project.count }.by(-1)
         end
     end
 
