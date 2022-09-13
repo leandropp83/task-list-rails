@@ -1,24 +1,39 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Task list
 
-Things you may want to cover:
+## Sobre
+Aplicação desenvolvida em Ruby on Rails com o intuito auxiliar na gestão de atividades, permitindo o cadastro de projetos e tarefas. 
+Projeto proposto pelo [desafio Artia](https://github.com/Artia/desafios-desevolvimento/blob/master/desafio-fullstack.md).
 
-* Ruby version
+## Como rodar o projeto
 
-* System dependencies
+Clone o repositório
+```sh
+git clone https://github.com/leandropp83/task-list-rails.git
+```
 
-* Configuration
+Acesse a pasta do projeto
+```sh
+cd task-list-rails/
+```
 
-* Database creation
+Suba os containers
+```sh
+docker-compose up -d
+```
 
-* Database initialization
+Crie as tabelas do banco
+```sh
+docker-compose exec app rails db:migrate
+```
 
-* How to run the test suite
+Acesse o projeto
+[http://localhost:3000](http://localhost:3000)
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## Testes
 
-* ...
+Execute o comando abaixo para rodar os testes
+```sh
+docker-compose exec app bundle exec rspec
+```
