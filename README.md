@@ -2,14 +2,14 @@
 # Task list
 
 ## Sobre
-Aplicação desenvolvida em Ruby on Rails com o intuito auxiliar na gestão de atividades, permitindo o cadastro de projetos e tarefas. 
+Aplicação desenvolvida utilizando Ruby on Rails com o intuito auxiliar na gestão de atividades, permitindo o cadastro de projetos e tarefas. 
 Projeto proposto pelo [desafio Artia](https://github.com/Artia/desafios-desevolvimento/blob/master/desafio-fullstack.md).
 
 ## Como rodar o projeto
 
-Clone o repositório
+Clone o repositório com o comando abaixo
 ```sh
-git clone https://github.com/leandropp83/task-list-rails.git
+git clone https://github.com/leandropp83/task-list-rails.git --config core.autocrlf=input
 ```
 
 Acesse a pasta do projeto
