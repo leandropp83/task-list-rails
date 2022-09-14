@@ -51,6 +51,4 @@ RUN rm -rf /gems/cache/*.gem && rm -rf $to_remove
 
 COPY . ./
 
-RUN bundle exec rails assets:precompile
-
 ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
