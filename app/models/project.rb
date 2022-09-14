@@ -5,4 +5,17 @@ class Project < ApplicationRecord
     validates :date_end, comparison: { greater_than: :date_in,
         message: " deve ser maior que a data inicial" }
     validates :name, uniqueness: true
+    validate :is_date?
+
+    private
+
+    def is_date?
+        begin
+            Date.parse(date_in.to_s).is_a?(Date)            
+            Date.parse(date_end.to_s).is_a?(Date)                
+        rescue
+            errors.add(:data, 'inválida') 
+        end
+    end
+
 end
