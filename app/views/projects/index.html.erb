@@ -70,9 +70,7 @@
                 <% end %>
             </li>
             <% unless @projects.blank? %>
-                <% taskss = [] %>
                 <% @projects.each do | project | %>
-                    <% taskss.push(project.task) %>
                     <%= render 'list', project: project %>
                 <% end %>
             <% else %>
@@ -81,3 +79,4 @@
         </ul>
     </div>
 </div>
+<%= render 'custom' %>

@@ -1,3 +1,4 @@
+<script>
 $(document).ready(function () {
     // Check update
     $('input[type=checkbox]').on('click', function() {
@@ -25,21 +26,21 @@ $(document).ready(function () {
 
 // validate 
 $(document).ready(function () {
-  $("form").on("submit", function() {
-    let submit = $(this).find("input[type=submit]");
-    submit.attr("disabled", "disabled");
-    setTimeout(function () {
-      submit.removeAttr("disabled");
-    }, 3000);
-  });
+    $("form").on("submit", function() {
+        let submit = $(this).find("input[type=submit]");
+        submit.attr("disabled", "disabled");
+        setTimeout(function () {
+        submit.removeAttr("disabled");
+        }, 3000);
+    });
+    // confirm modal
+    $('[data-bs-target="#confirm-delete"]').on('click', function(e) {
+        e.preventDefault();
+        $('.btn-ok').attr('href', $(this).data('href'));
+    });
 });
 
 $(document).on("focus", "input[name*='date']", function() {
   $(this).mask('00/00/0000 00:00:00', {reverse: false});
 });
-
-// confirm modal
-$('[data-bs-target="#confirm-delete"]').on('click', function(e) {
-    e.preventDefault();
-    $('.btn-ok').attr('href', $(this).data('href'));
-});
+</script>
