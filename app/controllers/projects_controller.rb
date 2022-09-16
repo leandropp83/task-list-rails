@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
     before_action :new, only: [:index]
 
     def index
-        @projects = Project.all
+        @projects = Project.all.paginate(:page => params[:page])
         @task_progress = TasksController::calc_progress
         @project_progress = calc_total_project_progress(@projects)        
     end

@@ -6,6 +6,7 @@ class Project < ApplicationRecord
         message: " deve ser maior que a data inicial" }
     validates :name, uniqueness: true
     validate :is_date?
+    self.per_page = 16
 
     private
 

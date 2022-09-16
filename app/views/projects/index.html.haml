@@ -48,7 +48,8 @@
               = form.submit "Adicionar", class:"btn btn-primary"
       - unless @projects.blank?
         - @projects.each do | project |
-          = render 'list', project: project
+          = render 'list', project: project        
+        = will_paginate @projects
       - else
         = render 'list', project: nil
 :javascript

@@ -46,6 +46,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
 gem "haml-rails"
+gem 'will_paginate', '~> 3.1'
 
 # gem 'validates_timeliness', '~> 4.0', '>= 4.0.2'
 
