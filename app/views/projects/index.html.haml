@@ -17,9 +17,16 @@
     = progress(@project_progress, 'Projetos concluídos (%)')
   .col-12.mb-2
     .row.justify-content-sm-end.justify-content-center
-      %span.squad.red.me-4.pr-2.col-auto Terminará com atraso
-      %span.squad.green.me-4.pr-2.col-auto Finalizado
-      %span.squad.white.col-auto Em andamento
+      .col-md-auto
+        %select.form-select#order
+          - ORDER_BY.each do | order |
+            %option{:value => order[0], :selected => order[0] == get_order}
+              = "#{order[1][:label]}"
+      .col-md
+        .row.justify-content-sm-end.justify-content-center
+          %span.squad.red.me-4.pr-2.col-auto Terminará com atraso
+          %span.squad.green.me-4.pr-2.col-auto Finalizado
+          %span.squad.white.col-auto Em andamento
   .card.w-100.mb-5.text-center.project
     .card-header.overflow-group
       .row.justify-content-between
@@ -53,8 +60,7 @@
       - else
         = render 'list', project: nil
 :javascript
-  $(document).ready(function () {
-      // Check update
+  $(document).ready(function () {      
       $('input[type=checkbox]').on('click', function() {
           // let token = $(this).parents('form').find('input[name=authenticity_token]').val();
           $.ajax({
@@ -67,10 +73,16 @@
               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             },
             success: function () {
-              location.reload(); // até ajustar os gráficos para atualizarem via js também
+              location.reload();
             }
         });
         $(this).closest('li').toggleClass( 'checked' );
+      });
+
+      $('select.form-select').on('change', function() {
+        var href = new URL($('#HTTP_SERVER').val());
+        href.searchParams.set('order_by', $(this).val());
+        window.location.replace(href.toString());
       });
   
       $('.accordion-toggle').on('click', function() {

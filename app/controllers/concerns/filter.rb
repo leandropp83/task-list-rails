@@ -1,4 +1,5 @@
 module Filter
+    
     protected
 
     def current_page
@@ -6,6 +7,8 @@ module Filter
     end
 
     def order
-        (params[:order_by] && ORDER_BY[params[:order_by].to_i] ? ORDER_BY[params[:order_by].to_i] : ORDER_BY[0])
+        order = ( ORDER_BY.include? params[:order_by].to_s ) ? params[:order_by].to_s : "1"
+        ORDER_BY[order][:value]
     end
 end
+

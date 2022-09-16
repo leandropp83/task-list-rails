@@ -33,4 +33,8 @@ module ApplicationHelper
         super *[coll_or_options, options].compact
     end
 
+    def get_order
+        ( ORDER_BY.include? params[:order_by].to_s ) ? params[:order_by].to_s : "1"
+    end
+
 end
