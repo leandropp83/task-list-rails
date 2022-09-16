@@ -1,10 +1,11 @@
 class ProjectsController < ApplicationController
+    include Filter
 
     before_action :set_project, only: [:update, :destroy]
     before_action :new, only: [:index]
 
     def index
-        @projects = Project.all.paginate(:page => params[:page])
+        @projects = Project.order(order).paginate(:page => current_page)
         @task_progress = TasksController::calc_progress
         @project_progress = calc_total_project_progress(@projects)        
     end
