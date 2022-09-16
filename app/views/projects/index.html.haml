@@ -1,0 +1,99 @@
+.row.align-items-center.mb-2.bg-primary-light.py-5.mb-5
+  .col-lg-12.text-center
+    %h1 Projetos
+#home.container.mb-5
+  - if flash[:notice]
+    .alert.alert-success.alert-dismissible.fade.show{:role => "alert"}
+      = flash[:notice]
+      = button_tag "", type: "button", class: "btn-close", data: { "bs-dismiss": "alert"}
+  - elsif flash[:error]
+    - flash[:error].each do |msg|
+      .alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+        = msg
+        = button_tag "", type: "button", class: "btn-close", data: { "bs-dismiss": "alert"}
+  .ms-auto.col-12.col-lg-4.mb-5
+    = progress(@task_progress, 'Atividades concluídas (%)')
+  .ms-auto.col-12.col-lg-4.mb-5
+    = progress(@project_progress, 'Projetos concluídos (%)')
+  .col-12.mb-2
+    .row.justify-content-sm-end.justify-content-center
+      %span.squad.red.me-4.pr-2.col-auto Terminará com atraso
+      %span.squad.green.me-4.pr-2.col-auto Finalizado
+      %span.squad.white.col-auto Em andamento
+  .card.w-100.mb-5.text-center.project
+    .card-header.overflow-group
+      .row.justify-content-between
+        .col-auto.col-sm-2.col-xl-1 Tarefas
+        .col-auto.col-sm Nome
+        .col-auto.col-sm Início
+        .col-auto.col-sm Fim
+        .col-auto.col-sm.d-lg-block.d-none Progresso
+        .col-auto.col-lg-1 Ações
+    %ul.list-group.list-group-flush
+      %li.list-group-item
+        = form_for @project, data: { id: "add-projects" } do | form |
+          .row.justify-content-between.mw-100.form-group.align-items-center.mb-0
+            .col-1
+              .btn.btn-secondary.py-0.px-1.d-none.d-lg-block{:title => "Cadastre um projeto para inserir tarefas"}
+                %i.bi.bi-info
+            .col-12.col-lg-3.mb-2.mb-lg-0
+              = form.text_field :name, class:"form-control", placeholder:"Nome", required:""
+            .col-6.col-lg
+              = form.text_field :date_in, class:"form-control", placeholder:"00/00/0000 00:00:00", required:""
+            .col-6.col-lg
+              = form.text_field :date_end, class:"form-control", placeholder:"00/00/0000 00:00:00", required:""
+            .col-6.col-lg-2.pl-lg-4.d-lg-block.d-none
+              = progress(0);
+            .col-auto.mt-2.mt-lg-0.col-lg-1.mlauto
+              = form.submit "Adicionar", class:"btn btn-primary"
+      - unless @projects.blank?
+        - @projects.each do | project |
+          = render 'list', project: project
+      - else
+        = render 'list', project: nil
+:javascript
+  $(document).ready(function () {
+      // Check update
+      $('input[type=checkbox]').on('click', function() {
+          // let token = $(this).parents('form').find('input[name=authenticity_token]').val();
+          $.ajax({
+            type: "POST",
+            url: $('#HTTP_SERVER').val() + 'tasks/' + $(this).attr('data-id') + '/check',
+            data: {
+                task: { checked: $(this).prop('checked') }
+            },
+            beforeSend(xhr) {
+              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            success: function () {
+              location.reload(); // até ajustar os gráficos para atualizarem via js também
+            }
+        });
+        $(this).closest('li').toggleClass( 'checked' );
+      });
+  
+      $('.accordion-toggle').on('click', function() {
+          $(this).closest('li').toggleClass( 'pb-0' );
+      });
+  });
+  
+  // validate 
+  $(document).ready(function () {
+      $("form").on("submit", function() {
+          let submit = $(this).find("input[type=submit]");
+          submit.attr("disabled", "disabled");
+          setTimeout(function () {
+          submit.removeAttr("disabled");
+          }, 3000);
+      });
+      // confirm modal
+      $('[data-bs-target="#confirm-delete"]').on('click', function(e) {
+          e.preventDefault();
+          $('.btn-ok').attr('href', $(this).data('href'));
+      });
+  });
+  
+  $(document).on("focus", "input[name*='date']", function() {
+    $(this).mask('00/00/0000 00:00:00', {reverse: false});
+  });
+

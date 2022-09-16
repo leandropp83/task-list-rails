@@ -1,0 +1,46 @@
+%li{:class => "list-group-item px-0 #{project.present? ? getColor(project) : ""} clone-project #{project.present? ? "" : " d-none"}"}
+  .row.justify-content-between.mw-100.mx-0
+    = form_for @project, method: :put do | f |
+      .row.justify-content-between.mw-100.w-100.mr-0
+        %a.accordion-toggle.collapsed.col-lg-1{"data-bs-toggle" => "collapse", :href => "#proj#{project.present? ? project[:id] : ""}"}
+          %i.bi.bi-chevron-down.cursor-pointer
+        .col-lg-3.col-12
+          = f.text_field :name, class:"form-control transparent", placeholder:"Nome", value: (project.nil? ? "" : project[:name]), required:""
+        .col-lg.col-sm-6
+          = f.text_field :date_in, class:"form-control transparent", placeholder:"00/00/0000 00:00:00", value: (project.present? ? project[:date_in].strftime("%m/%d/%Y %H:%M:%S") : ""), required:""
+        .col-lg.col-sm-6
+          = f.text_field :date_end, class:"form-control transparent", placeholder:"00/00/0000 00:00:00", value: (project.present? ? project[:date_end].strftime("%m/%d/%Y %H:%M:%S") : ""), required:""
+        = f.hidden_field :id, name:"id", value: (project.present? ? project[:id] : "")
+        .col-lg-2.my-4.my-lg-0= progress(project.present? ? calc_project_progress(project) : 0)
+        - if project.present?
+          .col-lg-1
+            .row.justify-content-center.align-items-center.mx-0.mx-auto
+              .text-center.col-6.p-0
+                = button_tag(  :class => "transparent red-bs", formmethod: :get, data: { "bs-target": "#confirm-delete", href: destroy_projects_path(project), "bs-toggle": "modal" }) do
+                  %i.bi.bi-trash-fill
+              .text-center.col-6
+                = button_tag(:class => "transparent blue-bs") do
+                  %i.bi.bi-pencil-square
+    .task.accordian-body.collapse.col-12.px-0{:id => "proj#{project.present? ? project[:id]: ""}"}
+      %ul.list-group.list-group-flush
+        / Tasks
+        %li.list-group-item.mt-3
+          = form_for @task do | form |
+            .row.justify-content-between.mw-100.form-group.mb-0.align-items-center.mx-auto
+              .col-lg-1.my-2.my-lg-0
+                .btn.btn-secondary.py-0.px-1.d-none.d-lg-block{:title => "Cadastrar tarefas"}
+                  %i.bi.bi-info
+              .col-12.col-lg.mb-2.mb-lg-0
+                = form.text_field :name, class:"form-control", placeholder:"Nome", required:""
+              .col-6.col-lg
+                = form.text_field :date_in, class:"form-control", placeholder:"00/00/0000 00:00:00", required:""
+              .col-6.col-lg
+                = form.text_field :date_end, class:"form-control", placeholder:"00/00/0000 00:00:00", required:""
+              .col-auto.mt-2.mt-lg-0.mlauto
+                = form.hidden_field :project_id, value: (project.present? ? project[:id] : "")
+                = form.submit "Adicionar", class:"btn btn-success"
+        - if project.present?
+          - project.task.each do | task |
+            = render 'tasks', task: task
+        - else
+          = render 'tasks', task: nil

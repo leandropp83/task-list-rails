@@ -1,0 +1,25 @@
+%li{:class => "list-group-item #{task.present? ? ( task[:checked] ? 'checked' : "" ) : " d-none"}"}
+  = form_for @task, method: :put do | form |
+    .row.justify-content-between.mw-100.form-group.mb-0.align-items-center.input-group.mx-auto
+      .col-lg-1.my-2.my-lg-0.input-group-text
+        = form.check_box :checked,                                                     |
+          { checked: task.present? && task[:checked],                                  |
+          class: "form-check-input",                                                   |
+          data: {:id => task.present? ? task[:id] : ""},                               |
+          value: task.present? && task[:checked] ? STATUS[:ativo] : STATUS[:inativo] } |
+      .col-12.col-lg.mb-2.mb-lg-0
+        = form.text_field :name, class:"form-control", placeholder:"Nome", value: task.present? ? task[:name] : "", required:""
+      .col-6.col-lg
+        = form.text_field :date_in, class:"form-control", placeholder:"00/00/0000 00:00:00", value: task.present? ? task[:date_in].strftime("%m/%d/%Y %H:%M:%S") : "", required:""
+      .col-6.col-lg
+        = form.text_field :date_end, class:"form-control", placeholder:"00/00/0000 00:00:00", value: task.present? ? task[:date_end].strftime("%m/%d/%Y %H:%M:%S") : "", required:""
+      = form.hidden_field :id, name:"id", value: (task.present? ? task[:id] : "")
+      - if task.present?
+        .mt-2.mt-lg-0.col-lg-auto.me-0.me-lg-3
+          .row.justify-content-center.align-items-center.mx-0.mx-auto
+            .text-right.col-auto.px-0
+              = button_tag(  :class => "transparent red-bs", formmethod: :get, data: { "bs-target": "#confirm-delete", href: destroy_tasks_path(task), "bs-toggle": "modal" }) do
+                %i.bi.bi-trash-fill
+            .text-center.col-auto.pe-0
+              = button_tag(:class => "transparent blue-bs") do
+                %i.bi.bi-pencil-square

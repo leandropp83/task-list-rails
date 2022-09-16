@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title TaskListRails
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    = stylesheet_link_tag "style", media: 'all', 'data-turbolinks-track' => true
+    %script{:crossorigin => "anonymous", :integrity => "sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=", :src => "https://code.jquery.com/jquery-3.6.1.min.js"}
+    = javascript_include_tag "jquery.mask", "data-turbo-track": "reload", defer: true
+  %body
+    %input#HTTP_SERVER{:type => "hidden", :value => "#{request.original_url}"}/
+    .container-fluid
+      = render 'modal', { title: "Deletar", body: "Deseja deletar o item selecionado?", button: "Deletar" }
+      = yield
+    %footer.container-fluid.bg-dark
+      .container.text-white.text-center
+        Copyright © Site 2022. Todos os direitos reservados.
