@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
 
-    context ".calc_progress" do
+    context ".calculate_progress" do
         it "empty tasks should return 0" do
             [{}, nil, ""].each do | arg |
-                expect(TasksController::calc_progress arg).to eq(0)
+                expect(TasksController::calculate_progress arg).to eq(0)
             end
         end
         it "should return 100%" do
             projects = create_list(:project, 2, :with_checked_task)
             projects.each do | project |
-                expect(TasksController::calc_progress project.task).to eq(100)
+                expect(TasksController::calculate_progress project.task).to eq(100)
             end            
         end
     end

@@ -6,8 +6,8 @@ class ProjectsController < ApplicationController
 
     def index
         @projects = Project.order(order).paginate(:page => current_page)
-        @task_progress = TasksController::calc_progress
-        @project_progress = calc_total_project_progress(@projects)        
+        @task_progress = TasksController::calculate_progress
+        @project_progress = calculate_total_project_progress(@projects)        
     end
 
     def new
@@ -63,16 +63,11 @@ class ProjectsController < ApplicationController
         params.require(:project).permit(:name, :date_in, :date_end)
     end
 
-    def calc_total_project_progress(projects)    
+    def calculate_total_project_progress(projects)    
         if projects.empty?
             return 0
         end
-        completed = 0
-        projects.each do | value |
-            if isCompleted(value.task)
-                completed += 1
-            end
-        end
+        completed = projects.select { |val| isCompleted(val.task) }.count
         value = ( completed.to_f / projects.count.to_f ) * 100
         value.floor
     end

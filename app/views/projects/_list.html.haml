@@ -1,4 +1,4 @@
-%li{:class => "list-group-item px-0 #{project.present? ? getColor(project) : ""} clone-project #{project.present? ? "" : " d-none"}"}
+%li{:class => "list-group-item px-0 #{project.present? ? get_color(project) : ""} clone-project #{project.present? ? "" : " d-none"}"}
   .row.justify-content-between.mw-100.mx-0
     = form_for @project, method: :put do | f |
       .row.justify-content-between.mw-100.w-100.mr-0
@@ -11,7 +11,7 @@
         .col-lg.col-sm-6
           = f.text_field :date_end, class:"form-control transparent", placeholder:"00/00/0000 00:00:00", value: (project.present? ? project[:date_end].strftime("%m/%d/%Y %H:%M:%S") : ""), required:""
         = f.hidden_field :id, name:"id", value: (project.present? ? project[:id] : "")
-        .col-lg-2.my-4.my-lg-0= progress(project.present? ? calc_project_progress(project) : 0)
+        .col-lg-2.my-4.my-lg-0= progress(project.present? ? calculate_project_progress(project) : 0)
         - if project.present?
           .col-lg-1
             .row.justify-content-center.align-items-center.mx-0.mx-auto

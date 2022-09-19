@@ -55,7 +55,7 @@
               = form.submit "Adicionar", class:"btn btn-primary"
       - unless @projects.blank?
         - @projects.each do | project |
-          = render 'list', project: project        
+          = render 'list', project: project      
         = will_paginate @projects
       - else
         = render 'list', project: nil
@@ -65,7 +65,7 @@
           // let token = $(this).parents('form').find('input[name=authenticity_token]').val();
           $.ajax({
             type: "POST",
-            url: $('#HTTP_SERVER').val() + 'tasks/' + $(this).attr('data-id') + '/check',
+            url: window.location.origin + '/tasks/' + $(this).attr('data-id') + '/check',
             data: {
                 task: { checked: $(this).prop('checked') }
             },

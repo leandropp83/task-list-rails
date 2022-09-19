@@ -1,10 +1,10 @@
 module ProjectsHelper
 
-    def calc_project_progress(project)
-        TasksController::calc_progress project.task
+    def calculate_project_progress(project)
+        TasksController::calculate_progress project.task
     end
 
-    def getColor project
+    def get_color project
         ProjectsController.new.get_project_color project
     end
 

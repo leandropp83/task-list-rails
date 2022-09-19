@@ -35,11 +35,11 @@ class TasksController < ApplicationController
         end        
     end    
 
-    def self.calc_progress(tasks = nil)
+    def self.calculate_progress(tasks = nil)
         if tasks.nil?
             tasks = Task.all
         end
-        tasks.nil? || tasks.empty? ? 0 : self.calc_percent(tasks)
+        tasks.nil? || tasks.empty? ? 0 : self.calculate_percent(tasks)
     end
 
     private
@@ -52,13 +52,8 @@ class TasksController < ApplicationController
         params.require(:task).permit(:name, :date_in, :date_end, :checked)
     end
 
-    def self.calc_percent(tasks)
-        checked = 0
-        tasks.each do | task |            
-            if task[:checked] == true
-                checked += 1
-            end
-        end
+    def self.calculate_percent(tasks)        
+        checked = tasks.select { |t| t[:checked] }.count
         value = (checked.to_f / tasks.count.to_f) * 100
         value.floor
     end
