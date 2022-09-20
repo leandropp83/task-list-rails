@@ -1,13 +1,14 @@
 class ProjectsController < ApplicationController
-    include Filter
-
+    
     before_action :set_project, only: [:update, :destroy]
     before_action :new, only: [:index]
+    
+    include Filter
 
     def index
-        @projects = Project.order(order).paginate(:page => current_page)
+        @projects = project_repository.get_projects
         @task_progress = TasksController::calculate_progress
-        @project_progress = calculate_total_project_progress(@projects)        
+        @project_progress = project_service.calculate_total_project_progress        
     end
 
     def new
@@ -42,43 +43,25 @@ class ProjectsController < ApplicationController
     end
 
     def get_project_color project
-        if project.task.empty?
-            return ""
-        end
-        completed = isCompleted(project.task)
-        delayed = project.task.select{|task| isDelayed(task[:date_end], project[:date_end]) }
-        if completed
-            return "checked"
-        end
-        !delayed.empty? ? " delayed" : ""
+        project_service.get_project_color project
     end
 
     private
+
+    def project_repository
+        @project_repository ||= Application::Repository::ProjectRepository.new order, current_page    
+    end
+
+    def project_service
+        @project_service ||= Application::Services::ProjectService.new @projects
+    end
     
     def set_project
-        @project = Project.find(params[:id])
+        @project = project_repository.set_project(params[:id])
     end
 
     def project_params
         params.require(:project).permit(:name, :date_in, :date_end)
-    end
-
-    def calculate_total_project_progress(projects)    
-        if projects.empty?
-            return 0
-        end
-        completed = projects.select { |val| isCompleted(val.task) }.count
-        value = ( completed.to_f / projects.count.to_f ) * 100
-        value.floor
-    end
-
-    def isCompleted(tasks)
-        checked_list = tasks.select { |value| value[:checked] == false }
-        !tasks.empty? && checked_list.empty?
-    end
-
-    def isDelayed date, compare
-        date > compare
-    end
+    end   
 
 end
