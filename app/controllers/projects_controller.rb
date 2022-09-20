@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
     def index
         @projects = project_repository.get_projects
-        @task_progress = TasksController::calculate_progress
+        @task_progress = Application::Services::TaskService.new.calculate_progress
         @project_progress = project_service.calculate_total_project_progress        
     end
 
@@ -46,6 +46,10 @@ class ProjectsController < ApplicationController
         project_service.get_project_color project
     end
 
+    def set_project id = nil
+        @project = project_repository.set_project( id.nil? ? params[:id] : id )
+    end
+
     private
 
     def project_repository
@@ -54,10 +58,6 @@ class ProjectsController < ApplicationController
 
     def project_service
         @project_service ||= Application::Services::ProjectService.new @projects
-    end
-    
-    def set_project
-        @project = project_repository.set_project(params[:id])
     end
 
     def project_params

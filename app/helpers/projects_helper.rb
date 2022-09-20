@@ -1,7 +1,7 @@
 module ProjectsHelper
 
     def calculate_project_progress(project)
-        TasksController::calculate_progress project.task
+        TasksController.new.task_service.calculate_progress project.task
     end
 
     def get_color project

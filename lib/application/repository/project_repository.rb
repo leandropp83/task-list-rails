@@ -8,8 +8,8 @@ module Application
                 @current_page = current_page
             end            
 
-            def set_project
-                @project = @model.find(@params[:id])
+            def set_project id
+                @project = @model.find(id)
             end
 
             def get_projects

@@ -4,11 +4,8 @@ class TasksController < ApplicationController
 
     def create
         @project = Project.find(params[:task][:project_id])
-        @task = @project.task.new(task_params)        
-        @task[:status] = STATUS[:ativo]
-        if @task[:checked].nil?
-            @task[:checked] = STATUS[:inativo]
-        end
+        @task = @project.task.new(task_params)
+        @task = task_service.get_other_params @task        
         if @task.save
             flash[:notice] = "#{@task[:name]} foi cadastrado!"
         else
@@ -33,29 +30,24 @@ class TasksController < ApplicationController
                 format.json { render json: @task.errors, status: :unprocessable_entity }
             end
         end        
-    end    
+    end
 
-    def self.calculate_progress(tasks = nil)
-        if tasks.nil?
-            tasks = Task.all
-        end
-        tasks.nil? || tasks.empty? ? 0 : self.calculate_percent(tasks)
+    def task_repository
+        @task_repository ||= Application::Repository::TaskRepository.new    
+    end
+
+    def task_service
+        @task_service ||= Application::Services::TaskService.new
     end
 
     private
     
     def set_task
-        @task = Task.find(params[:id])
+        @task = task_repository.set_task(params[:id])
     end
 
     def task_params
         params.require(:task).permit(:name, :date_in, :date_end, :checked)
-    end
-
-    def self.calculate_percent(tasks)        
-        checked = tasks.select { |t| t[:checked] }.count
-        value = (checked.to_f / tasks.count.to_f) * 100
-        value.floor
     end
 
 end

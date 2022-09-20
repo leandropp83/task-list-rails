@@ -5,13 +5,13 @@ RSpec.describe TasksController, type: :controller do
     context ".calculate_progress" do
         it "empty tasks should return 0" do
             [{}, nil, ""].each do | arg |
-                expect(TasksController::calculate_progress arg).to eq(0)
+                expect(Application::Services::TaskService.new.calculate_progress arg).to eq(0)
             end
         end
         it "should return 100%" do
             projects = create_list(:project, 2, :with_checked_task)
             projects.each do | project |
-                expect(TasksController::calculate_progress project.task).to eq(100)
+                expect(Application::Services::TaskService.new.calculate_progress project.task).to eq(100)
             end            
         end
     end
